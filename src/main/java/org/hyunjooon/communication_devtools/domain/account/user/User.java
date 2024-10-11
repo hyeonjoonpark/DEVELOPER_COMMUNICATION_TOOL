@@ -1,6 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.account.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class User {
     @Column(nullable = false) private String userName; // 사용자 이름
     @Column(nullable = false, unique = true) private String email; // 사용자 이메일
     @Column(nullable = false) private String phoneNumber; // 사용자 전화번호
-    @Column(nullable = false) private int age; // 사용자 나이
+    @Column(nullable = false) @Min(14) private int age; // 사용자 나이
 
     @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Gender gender; // 사용자 성별
     @Column(nullable = false) private String password; // 사용자 비밀번호
