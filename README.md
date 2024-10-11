@@ -2,11 +2,11 @@
 
 ### STACKS
 
-| Stack          | Stack Detail                                    |
-|----------------|-------------------------------------------------|
-| Language       | JAVA 17                                         |
+| Stack          | Stack Detail                               |
+|----------------|--------------------------------------------|
+| Language       | JAVA 17                                    |
 | Framework      | Spring Framework (Spring Boot, Spring Security) |
-| Database       | MySQL, Redis                                    |
-| Message Stream | Kafka                                           |
-| Security       | Oauth2 Client                                   |
-| etc.           | WebSocket                                       |
+| Database       | MySQL, Redis                               |
+| Message Stream | Kafka                                      |
+| Security       | Oauth2 Client                              |
+| etc.           | WebSocket, WebRTC                          |
