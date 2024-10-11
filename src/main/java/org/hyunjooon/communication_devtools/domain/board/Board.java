@@ -3,7 +3,10 @@ package org.hyunjooon.communication_devtools.domain.board;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
+<<<<<<< HEAD
 import lombok.Builder;
+=======
+>>>>>>> origin/main
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -31,6 +34,7 @@ public class Board {
 
     @Column(nullable = false) @ColumnDefault("0") @Min(0) private int viewCount; // 조회 갯수
     @Column(nullable = false) @ColumnDefault("0") @Min(0) private int likeCount; // 좋아요 갯수
+<<<<<<< HEAD
 
     // 댓글(BoardComment) 연관관계 매핑
 
@@ -43,4 +47,6 @@ public class Board {
         this.viewCount = viewCount;
         this.likeCount = likeCount;
     }
+=======
+>>>>>>> origin/main
 }
