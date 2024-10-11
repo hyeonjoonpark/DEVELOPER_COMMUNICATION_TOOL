@@ -24,6 +24,9 @@ public class Board {
     @Column(nullable = false, length = 50) private String title; // 게시물 제목
     @Column(nullable = false, length = 1000) private String content; // 게시물 내용
 
+    private String boardImageName; // 게시물 이미지 이름
+    private String boardImageUrl; // 게시물 이미지 경로
+
     // 작성자 (User) 연관관계 매핑
 
     @Column(nullable = false) @CreatedDate private LocalDateTime createdDate; // 등록일자
@@ -35,9 +38,12 @@ public class Board {
     // 댓글(BoardComment) 연관관계 매핑
 
     @Builder
-    public Board(String title, String content, LocalDateTime createdDate, LocalDateTime lastModifiedDate, int viewCount, int likeCount) {
+
+    public Board(String title, String content, String boardImageName, String boardImageUrl, LocalDateTime createdDate, LocalDateTime lastModifiedDate, int viewCount, int likeCount) {
         this.title = title;
         this.content = content;
+        this.boardImageName = boardImageName;
+        this.boardImageUrl = boardImageUrl;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
         this.viewCount = viewCount;
