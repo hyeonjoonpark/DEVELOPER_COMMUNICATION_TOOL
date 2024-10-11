@@ -38,7 +38,6 @@ public class Board {
     // 댓글(BoardComment) 연관관계 매핑
 
     @Builder
-
     public Board(String title, String content, String boardImageName, String boardImageUrl, LocalDateTime createdDate, LocalDateTime lastModifiedDate, int viewCount, int likeCount) {
         this.title = title;
         this.content = content;
