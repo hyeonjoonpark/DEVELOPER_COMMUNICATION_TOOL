@@ -1,0 +1,62 @@
+package org.hyunjooon.communication_devtools.domain.account.user;
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
+import org.hyunjooon.communication_devtools.domain.account.user.enums.Role;
+import org.hyunjooon.communication_devtools.domain.account.user.enums.Status;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class User {
+    @Id
+    private String userId; // 사용자 고유 ID
+
+    @Column(nullable = false) private String userName; // 사용자 이름
+    @Column(nullable = false, unique = true) private String email; // 사용자 이메일
+    @Column(nullable = false) private String phoneNumber; // 사용자 전화번호
+    @Column(nullable = false) private int age; // 사용자 나이
+
+    @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Gender gender; // 사용자 성별
+    @Column(nullable = false) private String password; // 사용자 비밀번호
+
+    private String provider; // 사용자 Oauth provider
+    private String providerId; // 사용자 Oauth providerId
+
+    private Status status; // 사용자 상태
+
+    private String profileImageName; // 사용자 프로필 이미지 이름
+    private String profileImageUrl; // 사용자 프로필 이미지 경로
+    private String profileDescription; // 사용자 프로필 기타 설명
+
+    @ElementCollection private List<String> interested = new ArrayList<>(); // 사용자 취미
+
+    @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Role role; // 사용자 권한
+
+    @Builder
+    public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String password, String provider, String providerId, Status status, String profileImageName, String profileImageUrl, String profileDescription, List<String> interested, Role role) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.gender = gender;
+        this.password = password;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.status = status;
+        this.profileImageName = profileImageName;
+        this.profileImageUrl = profileImageUrl;
+        this.profileDescription = profileDescription;
+        this.interested = interested;
+        this.role = role;
+    }
+}
