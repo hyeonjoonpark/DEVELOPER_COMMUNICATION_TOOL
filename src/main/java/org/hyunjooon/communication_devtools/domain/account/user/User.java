@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Role;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Status;
+import org.hyunjooon.communication_devtools.domain.room.ChatRoom;
+import org.hyunjooon.communication_devtools.domain.room_user.RoomUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +34,37 @@ public class User {
     private String provider; // 사용자 Oauth provider
     private String providerId; // 사용자 Oauth providerId
 
-    private Status status; // 사용자 상태
+    private Status status; // 사용자 상태(ONLINE: 접속, OFFLINE: 접속해제, DO_NOT_DISTURBED: 방해금지)
 
     private String profileImageName; // 사용자 프로필 이미지 이름
     private String profileImageUrl; // 사용자 프로필 이미지 경로
     private String profileDescription; // 사용자 프로필 기타 설명
 
-    @ElementCollection private List<String> interested = new ArrayList<>(); // 사용자 취미
+    @ElementCollection private List<String> interested = new ArrayList<>(); // 사용자 관심사
 
-    @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Role role; // 사용자 권한
+    @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Role role; // 사용자 권한 (ROLE_USER: 일반 사용자, ROLE_ADMIN: 어드민)
+
+    // 내가 생성한(Host) ChatRoom
+    @OneToMany(mappedBy = "hostUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatRoom> hostRooms= new ArrayList<>();
+
+    public void addHostRooms(ChatRoom chatRoom) {
+        chatRoom.setHostUser(this);
+        this.hostRooms.add(chatRoom);
+    }
+
+    // 자신이 속한 채팅방 (RoomUser) 엔티티와 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomUser> rooms = new ArrayList<>();
+
+    public void addRooms(RoomUser roomUser) {
+        roomUser.setUser(this);
+        this.rooms.add(roomUser);
+    }
+
+    // 자신이 올린 게시물 (Board) 엔티티와 매핑
+
+    // 자신이 올림 게시물 (Post) 엔티티와 매핑
 
     @Builder
     public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String password, String provider, String providerId, Status status, String profileImageName, String profileImageUrl, String profileDescription, List<String> interested, Role role) {
