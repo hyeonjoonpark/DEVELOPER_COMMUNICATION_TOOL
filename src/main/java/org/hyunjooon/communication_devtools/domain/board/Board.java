@@ -2,11 +2,9 @@ package org.hyunjooon.communication_devtools.domain.board;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -28,6 +26,8 @@ public class Board {
     private String boardImageUrl; // 게시물 이미지 경로
 
     // 작성자 (User) 연관관계 매핑
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id") @Setter
+    private User user; // 작성자
 
     @Column(nullable = false) @CreatedDate private LocalDateTime createdDate; // 등록일자
     @Column(nullable = false) @LastModifiedDate private LocalDateTime lastModifiedDate; // 마지막 수정일자

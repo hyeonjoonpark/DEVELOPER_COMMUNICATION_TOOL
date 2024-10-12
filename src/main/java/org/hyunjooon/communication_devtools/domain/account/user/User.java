@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Role;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Status;
+import org.hyunjooon.communication_devtools.domain.board.Board;
+import org.hyunjooon.communication_devtools.domain.post.Post;
 import org.hyunjooon.communication_devtools.domain.room.ChatRoom;
 import org.hyunjooon.communication_devtools.domain.room_user.RoomUser;
 
@@ -63,8 +65,22 @@ public class User {
     }
 
     // 자신이 올린 게시물 (Board) 엔티티와 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Board> boards = new ArrayList<>();
+
+    public void addBoards(Board board) {
+        board.setUser(this);
+        this.boards.add(board);
+    }
 
     // 자신이 올림 게시물 (Post) 엔티티와 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
+
+    public void addPosts(Post post) {
+        post.setUser(this);
+        this.posts.add(post);
+    }
 
     @Builder
     public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String password, String provider, String providerId, Status status, String profileImageName, String profileImageUrl, String profileDescription, List<String> interested, Role role) {

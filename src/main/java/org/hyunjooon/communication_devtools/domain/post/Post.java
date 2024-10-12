@@ -2,11 +2,9 @@ package org.hyunjooon.communication_devtools.domain.post;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -29,6 +27,8 @@ public class Post {
     @Column(nullable = false) @ColumnDefault("0") @Min(0) private int likeCount; // 좋아요 갯수
 
     // 작성자 필드(User) 엔티티 연관관계 매핑
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id") @Setter
+    private User user; // 작성자
 
     @CreatedDate private LocalDateTime createdDate;
     @LastModifiedDate private LocalDateTime lastModifiedDate;
