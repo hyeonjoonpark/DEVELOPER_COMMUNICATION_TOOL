@@ -5,11 +5,14 @@ import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
+import org.hyunjooon.communication_devtools.domain.board_comment.BoardComment;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,6 +39,13 @@ public class Board {
     @Column(nullable = false) @ColumnDefault("0") @Min(0) private int likeCount; // 좋아요 갯수
 
     // 댓글(BoardComment) 연관관계 매핑
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardComment> comments = new ArrayList<>();
+
+    public void addComment(BoardComment comment) {
+        comment.setBoard(this);
+        this.comments.add(comment);
+    }
 
     @Builder
     public Board(String title, String content, String boardImageName, String boardImageUrl, LocalDateTime createdDate, LocalDateTime lastModifiedDate, int viewCount, int likeCount) {
