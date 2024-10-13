@@ -18,12 +18,6 @@ spring:
     generate-ddl: true
   main:
     allow-bean-definition-overriding: true
-  data:
-    rest:
-      detection-strategy: annotated
-      base-path: /api
-  thymeleaf3:
-    decoupled-logic: true
 
 server:
   servlet:
