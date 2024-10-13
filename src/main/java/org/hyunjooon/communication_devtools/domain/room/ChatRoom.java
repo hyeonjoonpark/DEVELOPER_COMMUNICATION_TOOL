@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,14 +33,14 @@ public class ChatRoom {
 
     // 방에 접속한 User 엔티티 (RoomUser) 매핑
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoomUser> roomUsers;
+    private List<RoomUser> roomUsers = new ArrayList<>();
 
     public void addRoomUser(RoomUser roomUser) {
         roomUser.setRoom(this);
         this.roomUsers.add(roomUser);
     }
 
-    public ChatRoom(UUID id, String roomTitle, String roomDescription, String roomPassword, List<String> topics, boolean isPrivate, LocalDate createdDate) {
+    public ChatRoom(UUID id, String roomTitle, String roomDescription, String roomPassword, List<String> topics, boolean isPrivate, LocalDate createdDate, User hostUser, List<RoomUser> roomUsers) {
         this.id = id;
         this.roomTitle = roomTitle;
         this.roomDescription = roomDescription;
@@ -47,5 +48,7 @@ public class ChatRoom {
         this.topics = topics;
         this.isPrivate = isPrivate;
         this.createdDate = createdDate;
+        this.hostUser = hostUser;
+        this.roomUsers = roomUsers;
     }
 }

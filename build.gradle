@@ -52,6 +52,9 @@ dependencies {
     // Stomp Client
     // https://mvnrepository.com/artifact/org.webjars/stomp-websocket
     implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.4'
+
+    // P6SpyFormatter
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
 }
 
 tasks.named('test') {

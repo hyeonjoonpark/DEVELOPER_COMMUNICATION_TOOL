@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_LOCAL_HOST}/devtools?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnect=true
+    password: ${DB_LOCAL_PASSWORD}
+    username: ${DB_LOCAL_USERNAME}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 30
+      idle-timeout: 10
+      max-lifetime: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.hibernate.format_sql: true
+      hibernate.hibernate.default_batch_fetch_size: 100
+    generate-ddl: true
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    rest:
+      detection-strategy: annotated
+      base-path: /api
+  thymeleaf3:
+    decoupled-logic: true
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true

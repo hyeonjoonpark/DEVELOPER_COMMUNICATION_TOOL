@@ -37,7 +37,7 @@ public class User {
     private String provider; // 사용자 Oauth provider
     private String providerId; // 사용자 Oauth providerId
 
-    private Status status; // 사용자 상태(ONLINE: 접속, OFFLINE: 접속해제, DO_NOT_DISTURBED: 방해금지)
+    @Enumerated(value = EnumType.STRING) private Status status; // 사용자 상태(ONLINE: 접속, OFFLINE: 접속해제, DO_NOT_DISTURBED: 방해금지)
 
     private String profileImageName; // 사용자 프로필 이미지 이름
     private String profileImageUrl; // 사용자 프로필 이미지 경로
