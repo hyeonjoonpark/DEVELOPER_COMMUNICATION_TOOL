@@ -1,10 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.board_comment;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.hyunjooon.communication_devtools.domain.board.Board;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,4 +25,12 @@ public class BoardComment {
     // 게시판 Board 테이블 매핑
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "board_id") @Setter
     private Board board;
+
+    @Builder
+    public BoardComment(String comment, LocalDateTime createdDate, User user, Board board) {
+        this.comment = comment;
+        this.createdDate = createdDate;
+        this.user = user;
+        this.board = board;
+    }
 }
