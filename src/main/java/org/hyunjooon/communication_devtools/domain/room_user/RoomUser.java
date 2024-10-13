@@ -1,10 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.room_user;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.hyunjooon.communication_devtools.domain.room.ChatRoom;
 
@@ -21,4 +18,10 @@ public class RoomUser {
     // User 엔티티와 1 : N 매핑
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id") @Setter
     private User user;
+
+    @Builder
+    public RoomUser(ChatRoom room, User user) {
+        this.room = room;
+        this.user = user;
+    }
 }
