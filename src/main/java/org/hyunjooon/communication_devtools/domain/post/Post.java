@@ -5,10 +5,13 @@ import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
+import org.hyunjooon.communication_devtools.domain.post_comment.PostComment;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +37,13 @@ public class Post {
     @LastModifiedDate private LocalDateTime lastModifiedDate;
 
     // 게시물 댓글(PostComment) 엔티티 연관관계 매핑
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostComment> comments = new ArrayList<>();
+
+    public void addComment(PostComment comment) {
+        comment.setPost(this);
+        this.comments.add(comment);
+    }
 
     @Builder
     public Post(String title, String content, String postImageName, String postImageUrl, int viewCount, int likeCount, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
