@@ -34,7 +34,7 @@ public class ChatRoom {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoomUser> roomUsers;
 
-    public void setRoomUser(RoomUser roomUser) {
+    public void addRoomUser(RoomUser roomUser) {
         roomUser.setRoom(this);
         this.roomUsers.add(roomUser);
     }
