@@ -1,4 +1,8 @@
 spring:
+  data:
+    redis:
+      host: ${REDIS_LOCAL_HOST}
+      port: ${REDIS_LOCAL_PORT}
   datasource:
     url: jdbc:mysql://${DB_LOCAL_HOST}/devtools?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnect=true
     password: ${DB_LOCAL_PASSWORD}
