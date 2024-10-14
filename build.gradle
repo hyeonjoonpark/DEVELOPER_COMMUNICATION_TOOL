@@ -68,6 +68,9 @@ dependencies {
 
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // GitHub API
+    implementation 'org.kohsuke:github-api:1.301'
 }
 
 tasks.named('test') {
