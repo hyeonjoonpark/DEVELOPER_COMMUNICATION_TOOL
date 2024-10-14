@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface RoomRepository extends JpaRepository<ChatRoom, UUID> {
-    
+
 }
