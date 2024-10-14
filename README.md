@@ -15,9 +15,7 @@
 
 ### 기능명세서
 - auth
-  - Google Login
   - GitHub Login
-  - Apple Login
 
 - Chatting
   - N:M 단체 채팅방 생성
