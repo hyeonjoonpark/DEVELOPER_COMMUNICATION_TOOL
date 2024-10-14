@@ -1,8 +1,7 @@
-package org.hyunjooon.communication_devtools.global.config;
+package org.hyunjooon.communication_devtools.domain.chat;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 @Controller

@@ -1,4 +1,4 @@
-package org.hyunjooon.communication_devtools.global.config;
+package org.hyunjooon.communication_devtools.domain.chat;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
