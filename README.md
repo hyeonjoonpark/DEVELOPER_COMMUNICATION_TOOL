@@ -10,7 +10,8 @@
 | Message Stream | Kafka                                           |
 | Security       | Oauth2 Client, JWT                              |
 | etc.           | WebSocket, WebRTC, GraphQL(Apollo Server)       |
-
+| DevOps         | Docker, Kubernetes                              |
+| CI / CD        | Github Action                                   |
 
 ### 기능명세서
 - auth
