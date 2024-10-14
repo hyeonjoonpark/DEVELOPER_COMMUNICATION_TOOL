@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardCommentRepository extends JpaRepository<BoardComment, Long> {
-    
+
 }
