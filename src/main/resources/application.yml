@@ -2,6 +2,7 @@ spring:
   kafka:
     streams:
       application-id: test_id
+    bootstrap-servers: localhost:9092
   data:
     redis:
       host: ${REDIS_LOCAL_HOST}
