@@ -14,6 +14,8 @@ import org.hyunjooon.communication_devtools.domain.board_comment.BoardComment;
 import org.hyunjooon.communication_devtools.domain.post.Post;
 import org.hyunjooon.communication_devtools.domain.room.ChatRoom;
 import org.hyunjooon.communication_devtools.domain.room_user.RoomUser;
+import org.hyunjooon.communication_devtools.domain.source_code.SourceCode;
+import org.hyunjooon.communication_devtools.domain.source_code_review.SourceCodeReview;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +92,24 @@ public class User {
     public void addComments(BoardComment boardComment) {
         boardComment.setUser(this);
         this.comments.add(boardComment);
+    }
+
+    // SourceCode 엔티티 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SourceCode> sourceCodes = new ArrayList<>();
+
+    public void addSourceCodes(SourceCode sourceCode) {
+        sourceCode.setUser(this);
+        this.sourceCodes.add(sourceCode);
+    }
+
+    // SourceCodeReview 엔티티 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SourceCodeReview> sourceCodeReviews = new ArrayList<>();
+
+    public void addSourceCodeReviews(SourceCodeReview sourceCodeReview) {
+        sourceCodeReview.setUser(this);
+        this.sourceCodeReviews.add(sourceCodeReview);
     }
 
     @Builder
