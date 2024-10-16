@@ -20,9 +20,7 @@ import org.hyunjooon.communication_devtools.domain.source_code_review.SourceCode
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
-@Getter
+@Entity @Table(name = "users") @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id
