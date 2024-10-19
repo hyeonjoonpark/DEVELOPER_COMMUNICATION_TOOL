@@ -1,8 +1,17 @@
 spring:
-  kafka:
-    streams:
-      application-id: test_id
-    bootstrap-servers: localhost:9092
+  application:
+    name: communication_devtools
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${DEVTOOL_GITHUB_CLIENT_ID}
+            client-secret: ${DEVTOOL_GITHUB_CLIENT_SECRET}
+#  kafka:
+#    streams:
+#      application-id: test_id
+#    bootstrap-servers: localhost:9092
   data:
     redis:
       host: ${REDIS_LOCAL_HOST}
@@ -33,3 +42,4 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+  port: 9090
