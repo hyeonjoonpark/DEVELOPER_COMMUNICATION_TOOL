@@ -29,7 +29,7 @@ public class ChatRoom {
 
     // 방 생성한 Host 사용자, User 엔티티 매핑
     @ManyToOne(fetch = FetchType.LAZY) @JoinTable(name = "host_user_id") @Setter
-    private User hostUser;
+    private User user;
 
     // 방에 접속한 User 엔티티 (RoomUser) 매핑
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -40,7 +40,7 @@ public class ChatRoom {
         this.roomUsers.add(roomUser);
     }
 
-    public ChatRoom(UUID id, String roomTitle, String roomDescription, String roomPassword, List<String> topics, boolean isPrivate, LocalDate createdDate, User hostUser, List<RoomUser> roomUsers) {
+    public ChatRoom(UUID id, String roomTitle, String roomDescription, String roomPassword, List<String> topics, boolean isPrivate, LocalDate createdDate, User user, List<RoomUser> roomUsers) {
         this.id = id;
         this.roomTitle = roomTitle;
         this.roomDescription = roomDescription;
@@ -48,7 +48,7 @@ public class ChatRoom {
         this.topics = topics;
         this.isPrivate = isPrivate;
         this.createdDate = createdDate;
-        this.hostUser = hostUser;
+        this.user = user;
         this.roomUsers = roomUsers;
     }
 }

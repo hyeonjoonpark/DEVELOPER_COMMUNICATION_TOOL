@@ -48,7 +48,7 @@ public class User {
     @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Role role; // 사용자 권한 (ROLE_USER: 일반 사용자, ROLE_ADMIN: 어드민)
 
     // 내가 생성한(Host) ChatRoom
-    @OneToMany(mappedBy = "hostUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatRoom> hostRooms= new ArrayList<>();
 
     public void addHostRooms(ChatRoom chatRoom) {
