@@ -52,7 +52,7 @@ public class User {
     private List<ChatRoom> hostRooms= new ArrayList<>();
 
     public void addHostRooms(ChatRoom chatRoom) {
-        chatRoom.setHostUser(this);
+        chatRoom.setUser(this);
         this.hostRooms.add(chatRoom);
     }
 
