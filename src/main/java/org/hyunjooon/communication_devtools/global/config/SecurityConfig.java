@@ -19,9 +19,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
+<<<<<<< HEAD
                 .oauth2Login(oauth -> oauth.successHandler((request, response, authentication) -> {
                     response.sendRedirect("http://localhost:3001"); // 프론트엔드 경로로 리다이랙트
                 }))
+=======
+                .oauth2Client(Customizer.withDefaults())
+>>>>>>> origin/main
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/**").permitAll()
