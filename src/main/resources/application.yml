@@ -1,4 +1,10 @@
 spring:
+  graphql:
+    graphiql:
+      enabled: true
+    schema:
+      printer:
+        enabled: true
   profiles:
     include: oauth
   application:
