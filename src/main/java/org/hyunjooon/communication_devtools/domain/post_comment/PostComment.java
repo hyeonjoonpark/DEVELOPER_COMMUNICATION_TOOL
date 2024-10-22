@@ -3,7 +3,6 @@ package org.hyunjooon.communication_devtools.domain.post_comment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
-import org.hyunjooon.communication_devtools.domain.board.Board;
 import org.hyunjooon.communication_devtools.domain.post.Post;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

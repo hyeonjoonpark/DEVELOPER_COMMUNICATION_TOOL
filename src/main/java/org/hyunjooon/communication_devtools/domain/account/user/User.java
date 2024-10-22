@@ -12,6 +12,7 @@ import org.hyunjooon.communication_devtools.domain.account.user.enums.Status;
 import org.hyunjooon.communication_devtools.domain.board.Board;
 import org.hyunjooon.communication_devtools.domain.board_comment.BoardComment;
 import org.hyunjooon.communication_devtools.domain.post.Post;
+import org.hyunjooon.communication_devtools.domain.post_comment.PostComment;
 import org.hyunjooon.communication_devtools.domain.room.ChatRoom;
 import org.hyunjooon.communication_devtools.domain.room_user.RoomUser;
 import org.hyunjooon.communication_devtools.domain.source_code.SourceCode;
@@ -83,13 +84,22 @@ public class User {
         this.posts.add(post);
     }
 
+    // 자신이 작성한 PostComment 엔티티와 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostComment> postComments = new ArrayList<>();
+
+    public void addPostComments(PostComment postComment) {
+        postComment.setUser(this);
+        this.postComments.add(postComment);
+    }
+
     // 자신이 작성한 게시물 댓글 (BoardComment) 엔티티 매핑
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardComment> comments = new ArrayList<>();
+    private List<BoardComment> boardComments = new ArrayList<>();
 
     public void addComments(BoardComment boardComment) {
         boardComment.setUser(this);
-        this.comments.add(boardComment);
+        this.boardComments.add(boardComment);
     }
 
     // SourceCode 엔티티 매핑
