@@ -25,6 +25,11 @@ type User {
     sourceCodeReviews: [SourceCodeReview!] # SourceCodeReview
 }
 
+type Query {
+    allUsers: [User!]!              # 모든 사용자 조회
+    user(userId: ID!): User         # 특정 사용자 조회
+}
+
 enum Gender {
     MALE
     FEMALE
