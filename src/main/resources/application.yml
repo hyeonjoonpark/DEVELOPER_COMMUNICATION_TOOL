@@ -1,5 +1,5 @@
 spring:
   profiles:
+    default: local
     active: local
     include: oauth
-    default: local
