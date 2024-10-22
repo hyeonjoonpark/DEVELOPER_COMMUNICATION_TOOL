@@ -25,9 +25,19 @@ type User {
     sourceCodeReviews: [SourceCodeReview!] # SourceCodeReview
 }
 
+type GlobalResponse {
+    message: String
+    data: JSON
+}
+
+scalar JSON
+
+type Mutation {
+    signUp(userId: ID!, userName: String!, email: String, gender: Gender!, password: String!, age: Int!, phoneNumber: String!, profileDescription: String, interested: [String], role: Role): GlobalResponse!
+}
+
 type Query {
-    users: [User!]!              # 모든 사용자 조회
-    user(userId: ID!): User         # 특정 사용자 조회
+    allUsers: [User!]!              # 모든 사용자 조회
 }
 
 enum Gender {
