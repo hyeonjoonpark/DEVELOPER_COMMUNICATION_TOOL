@@ -28,7 +28,6 @@ type User {
 enum Gender {
     MALE
     FEMALE
-    OTHER
 }
 
 enum Status {
