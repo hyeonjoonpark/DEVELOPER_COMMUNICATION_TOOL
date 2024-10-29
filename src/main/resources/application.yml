@@ -1,4 +1,11 @@
 spring:
+  graphql:
+    graphiql:
+      enabled: true    # GraphiQL UI 활성화
+      path: /graphiql  # GraphiQL UI 경로
+    schema:
+      locations: classpath:graphql/**/*.graphqls
+    path: /graphql
   profiles:
     default: local
     active: local
