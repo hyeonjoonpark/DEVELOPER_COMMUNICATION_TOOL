@@ -1,141 +1,138 @@
 type User {
-    userId: ID!                # 사용자 고유 ID
-    userName: String!          # 사용자 이름
-    email: String!             # 사용자 이메일
-    phoneNumber: String!       # 사용자 전화번호
-    age: Int!                  # 사용자 나이
-    gender: Gender!            # 사용자 성별
-    password: String!          # 사용자 비밀번호
-    provider: String           # 사용자 Oauth provider
-    providerId: String         # 사용자 Oauth providerId
-    status: Status             # 사용자 상태
-    profileImageName: String   # 사용자 프로필 이미지 이름
-    profileImageUrl: String    # 사용자 프로필 이미지 경로
-    profileDescription: String  # 사용자 프로필 기타 설명
-    interested: [String!]      # 사용자 관심사
-    role: Role!                # 사용자 권한
-
-    hostRooms: [ChatRoom!]     # 내가 생성한 ChatRoom
-    rooms: [RoomUser!]         # 자신이 속한 채팅방
-    boards: [Board!]           # 자신이 올린 게시물
-    posts: [Post!]             # 자신이 올린 게시물
-    postComments: [PostComment!] # 자신이 작성한 SNS 댓글
-    boardComments: [BoardComment!]   # 자신이 작성한 게시물 댓글
-    sourceCodes: [SourceCode!]  # SourceCode
-    sourceCodeReviews: [SourceCodeReview!] # SourceCodeReview
+  userId: ID! # 사용자 고유 ID
+  userName: String! # 사용자 이름
+  email: String! # 사용자 이메일
+  phoneNumber: String! # 사용자 전화번호
+  age: Int! # 사용자 나이
+  gender: Gender! # 사용자 성별
+  password: String! # 사용자 비밀번호
+  provider: String # 사용자 Oauth provider
+  providerId: String # 사용자 Oauth providerId
+  status: Status # 사용자 상태
+  profileImageName: String # 사용자 프로필 이미지 이름
+  profileImageUrl: String # 사용자 프로필 이미지 경로
+  profileDescription: String # 사용자 프로필 기타 설명
+  interested: [String!] # 사용자 관심사
+  role: Role! # 사용자 권한
+  hostRooms: [ChatRoom!] # 내가 생성한 ChatRoom
+  rooms: [RoomUser!] # 자신이 속한 채팅방
+  boards: [Board!] # 자신이 올린 게시물
+  posts: [Post!] # 자신이 올린 게시물
+  postComments: [PostComment!] # 자신이 작성한 SNS 댓글
+  boardComments: [BoardComment!] # 자신이 작성한 게시물 댓글
+  sourceCodes: [SourceCode!] # SourceCode
+  sourceCodeReviews: [SourceCodeReview!] # SourceCodeReview
 }
 
 type GlobalResponse {
-    message: String
-    data: JSON
+  message: String
+  data: JSON
 }
 
 scalar JSON
 
 type Mutation {
-    signUp(userId: ID!, userName: String!, email: String, gender: Gender!, password: String!, age: Int!, phoneNumber: String!, profileDescription: String, interested: [String], role: Role): GlobalResponse!
+  signUp(request: SignUpRequest!): GlobalResponse!
 }
 
 type Query {
-    allUsers: [User!]!              # 모든 사용자 조회
+  allUsers: [User!]! # 모든 사용자 조회
 }
 
 enum Gender {
-    MALE
-    FEMALE
+  MALE
+  FEMALE
 }
 
 enum Status {
-    ONLINE
-    OFFLINE
-    DO_NOT_DISTURBED
+  ONLINE
+  OFFLINE
+  DO_NOT_DISTURBED
 }
 
 enum Role {
-    ROLE_USER
-    ROLE_ADMIN
+  ROLE_USER
+  ROLE_ADMIN
 }
 
 # ChatRoom
 type ChatRoom {
-    id: ID!                     # 방 고유 ID
-    roomTitle: String!         # 방 제목
-    roomDescription: String     # 방 설명
-    roomPassword: String        # 방 비밀번호
-    topics: [String!]          # 토픽
-    isPrivate: Boolean!        # 공개 여부
-    createdDate: String!       # 방 생성 날짜 (ISO 형식)
-
-    user: User!                # 방 생성한 Host 사용자
-    roomUsers: [RoomUser!]     # 방에 접속한 사용자 목록
+  id: ID! # 방 고유 ID
+  roomTitle: String! # 방 제목
+  roomDescription: String # 방 설명
+  roomPassword: String # 방 비밀번호
+  topics: [String!] # 토픽
+  isPrivate: Boolean! # 공개 여부
+  createdDate: String! # 방 생성 날짜 (ISO 형식)
+  user: User! # 방 생성한 Host 사용자
+  roomUsers: [RoomUser!] # 방에 접속한 사용자 목록
 }
 
 # RoomUser 타입도 정의해야 합니다.
 type RoomUser {
-    id: ID!                  # 방 사용자 고유 ID
-    room: ChatRoom!         # 방 정보
-    user: User!             # 사용자 정보
+  id: ID! # 방 사용자 고유 ID
+  room: ChatRoom! # 방 정보
+  user: User! # 사용자 정보
 }
 
 type Board {
-    id: ID!                         # 게시물 ID
-    title: String!                  # 게시물 제목
-    content: String!                # 게시물 내용
-    boardImageName: String          # 게시물 이미지 이름
-    boardImageUrl: String           # 게시물 이미지 경로
-    user: User!                     # 작성자 정보
-    createdDate: String!            # 등록일자 (ISO 형식)
-    lastModifiedDate: String!       # 마지막 수정일자 (ISO 형식)
-    viewCount: Int!                 # 조회 갯수
-    likeCount: Int!                 # 좋아요 갯수
-    comments: [BoardComment!]       # 댓글 목록
+  id: ID! # 게시물 ID
+  title: String! # 게시물 제목
+  content: String! # 게시물 내용
+  boardImageName: String # 게시물 이미지 이름
+  boardImageUrl: String # 게시물 이미지 경로
+  user: User! # 작성자 정보
+  createdDate: String! # 등록일자 (ISO 형식)
+  lastModifiedDate: String! # 마지막 수정일자 (ISO 형식)
+  viewCount: Int! # 조회 갯수
+  likeCount: Int! # 좋아요 갯수
+  comments: [BoardComment!] # 댓글 목록
 }
 
 # BoardComment 타입도 정의해야 합니다.
 type BoardComment {
-    id: ID!                       # 댓글 고유 ID
-    comment: String!              # 댓글 내용
-    createdDate: String!          # 댓글 작성 시간 (ISO 형식)
-    user: User!                   # 작성자 정보
-    board: Board!                 # 게시물 정보
+  id: ID! # 댓글 고유 ID
+  comment: String! # 댓글 내용
+  createdDate: String! # 댓글 작성 시간 (ISO 형식)
+  user: User! # 작성자 정보
+  board: Board! # 게시물 정보
 }
 
 type Post {
-    id: ID!                         # 게시물 ID
-    title: String!                  # 게시물 제목
-    content: String!                # 게시물 내용
-    postImageName: String           # 이미지 이름
-    postImageUrl: String            # 이미지 저장 경로
-    viewCount: Int!                 # 조회 갯수
-    likeCount: Int!                 # 좋아요 갯수
-    user: User!                     # 작성자 정보
-    createdDate: String!            # 생성 날짜 (ISO 형식)
-    lastModifiedDate: String!       # 마지막 수정 날짜 (ISO 형식)
-    comments: [PostComment!]        # 게시물 댓글 목록
+  id: ID! # 게시물 ID
+  title: String! # 게시물 제목
+  content: String! # 게시물 내용
+  postImageName: String # 이미지 이름
+  postImageUrl: String # 이미지 저장 경로
+  viewCount: Int! # 조회 갯수
+  likeCount: Int! # 좋아요 갯수
+  user: User! # 작성자 정보
+  createdDate: String! # 생성 날짜 (ISO 형식)
+  lastModifiedDate: String! # 마지막 수정 날짜 (ISO 형식)
+  comments: [PostComment!] # 게시물 댓글 목록
 }
 
 type PostComment {
-    id: ID!                       # 댓글 고유 ID
-    comment: String!              # 댓글 내용
-    createdDate: String!          # 댓글 작성 시간 (ISO 형식)
-    user: User!                   # 작성자 정보
-    post: Post!                   # 관련 게시물 정보
+  id: ID! # 댓글 고유 ID
+  comment: String! # 댓글 내용
+  createdDate: String! # 댓글 작성 시간 (ISO 형식)
+  user: User! # 작성자 정보
+  post: Post! # 관련 게시물 정보
 }
 
-
 type SourceCode {
-    id: ID!                         # 소스 코드 고유 ID
-    sourceCode: String!             # 소스 코드 내용
-    user: User!                     # 작성자 정보
-    createdDate: String!            # 생성 날짜 (ISO 형식)
-    sourceCodeReview: [SourceCodeReview!] # 소스 코드 리뷰 목록
+  id: ID! # 소스 코드 고유 ID
+  sourceCode: String! # 소스 코드 내용
+  user: User! # 작성자 정보
+  createdDate: String! # 생성 날짜 (ISO 형식)
+  sourceCodeReview: [SourceCodeReview!] # 소스 코드 리뷰 목록
 }
 
 # SourceCodeReview 타입도 정의해야 합니다.
 type SourceCodeReview {
-    id: ID!                         # 리뷰 고유 ID
-    content: String!                # 리뷰 내용
-    createdDate: String!            # 생성 날짜 (ISO 형식)
-    sourceCode: SourceCode!         # 관련 소스 코드 정보
-    user: User!                     # 작성자 정보
+  id: ID! # 리뷰 고유 ID
+  content: String! # 리뷰 내용
+  createdDate: String! # 생성 날짜 (ISO 형식)
+  sourceCode: SourceCode! # 관련 소스 코드 정보
+  user: User! # 작성자 정보
 }

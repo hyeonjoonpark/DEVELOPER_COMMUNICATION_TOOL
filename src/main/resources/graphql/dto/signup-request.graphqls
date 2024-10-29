@@ -1,0 +1,12 @@
+input SignUpRequest {
+    userId: String!
+    userName: String!
+    email: String!
+    phoneNumber: String!
+    age: Int!
+    gender: Gender!
+    password: String!
+    profileDescription: String
+    interested: [String!]
+    role: Role!
+}
