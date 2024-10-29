@@ -1,8 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.account.user.presentation;
 
 import lombok.RequiredArgsConstructor;
-import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
-import org.hyunjooon.communication_devtools.domain.account.user.enums.Role;
+import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignUpRequest;
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.domain.account.user.service.UserService;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
@@ -32,17 +31,7 @@ public class UserController {
     }
 
     @MutationMapping(value = "signUp")
-    public GlobalResponse signUp(
-            @Argument String userId,
-            @Argument String userName,
-            @Argument String email,
-            @Argument Gender gender,
-            @Argument String password,
-            @Argument Integer age,
-            @Argument String phoneNumber,
-            @Argument String profileDescription,
-            @Argument List<String> interested,
-            @Argument Role role) {
-        return userService.create(userId, userName, email, gender, password, age, phoneNumber, profileDescription, interested, role);
+    public GlobalResponse signUp(@Argument SignUpRequest request) {
+        return userService.create(request);
     }
 }

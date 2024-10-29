@@ -41,7 +41,6 @@ public class User {
     @Enumerated(value = EnumType.STRING) private Status status; // 사용자 상태(ONLINE: 접속, OFFLINE: 접속해제, DO_NOT_DISTURBED: 방해금지)
 
     private String profileImageName; // 사용자 프로필 이미지 이름
-    private String profileImageUrl; // 사용자 프로필 이미지 경로
     private String profileDescription; // 사용자 프로필 기타 설명
 
     @ElementCollection private List<String> interested = new ArrayList<>(); // 사용자 관심사
@@ -121,7 +120,7 @@ public class User {
     }
 
     @Builder
-    public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String password, String provider, String providerId, Status status, String profileImageName, String profileImageUrl, String profileDescription, List<String> interested, Role role) {
+    public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String password, String provider, String providerId, Status status, String profileImageName, String profileDescription, List<String> interested, Role role) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
@@ -133,7 +132,6 @@ public class User {
         this.providerId = providerId;
         this.status = status;
         this.profileImageName = profileImageName;
-        this.profileImageUrl = profileImageUrl;
         this.profileDescription = profileDescription;
         this.interested = interested;
         this.role = role;
