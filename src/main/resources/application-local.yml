@@ -5,6 +5,8 @@ spring:
     schema:
       printer:
         enabled: true
+      locations: classpath:graphql/**/*.graphqls
+    path: /graphql
   application:
     name: communication_devtools
   #  kafka:
