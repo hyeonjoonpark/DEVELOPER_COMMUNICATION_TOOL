@@ -24,10 +24,7 @@ type User {
   sourceCodeReviews: [SourceCodeReview!] # SourceCodeReview
 }
 
-type GlobalResponse {
-  message: String
-  data: JSON
-}
+
 
 scalar JSON
 

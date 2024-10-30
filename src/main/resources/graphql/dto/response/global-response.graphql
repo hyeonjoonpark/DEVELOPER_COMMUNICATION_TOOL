@@ -1,0 +1,4 @@
+type GlobalResponse {
+    message: String
+    data: JSON
+}
