@@ -2,6 +2,7 @@ package org.hyunjooon.communication_devtools.domain.account.user.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignUpRequest;
+import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.response.UserResponse;
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.domain.account.user.service.UserService;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
