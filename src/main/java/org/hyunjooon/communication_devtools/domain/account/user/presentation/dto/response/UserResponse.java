@@ -1,4 +1,4 @@
-package org.hyunjooon.communication_devtools.domain.account.user.presentation;
+package org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.response;
 
 import lombok.Builder;
 
