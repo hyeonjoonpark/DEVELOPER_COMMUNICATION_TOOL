@@ -5,6 +5,7 @@ import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignUpRequest;
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public GlobalResponse create(SignUpRequest request) {
+    public GlobalResponse<?> create(SignUpRequest request) {
 
         boolean isExist = userRepository.existsById(request.userId());
         if(isExist) {
@@ -34,9 +35,6 @@ public class UserService {
                 .role(request.role())
                 .build();
         userRepository.save(user);
-        return GlobalResponse.builder()
-                .message("회원가입이 성공적으로 완료되었습니다")
-                .data(user)
-                .build();
+        return GlobalResponse.success("성공적으로 회원가입 되었습니다", user, HttpStatus.CREATED);
     }
 }

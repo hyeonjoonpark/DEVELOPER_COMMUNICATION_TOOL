@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @MutationMapping(value = "signUp")
-    public GlobalResponse signUp(@Argument SignUpRequest request) {
+    public GlobalResponse<?> signUp(@Argument SignUpRequest request) {
         return userService.create(request);
     }
 }
