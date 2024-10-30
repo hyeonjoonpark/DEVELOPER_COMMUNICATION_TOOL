@@ -28,13 +28,6 @@ type User {
 
 scalar JSON
 
-type Mutation {
-  signUp(request: SignUpRequest!): GlobalResponse!
-}
-
-type Query {
-  findAll: [User!]! # 모든 사용자 조회
-}
 
 enum Gender {
   MALE
