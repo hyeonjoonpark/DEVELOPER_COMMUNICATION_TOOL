@@ -36,7 +36,7 @@ type Mutation {
 }
 
 type Query {
-  allUsers: [User!]! # 모든 사용자 조회
+  findAll: [User!]! # 모든 사용자 조회
 }
 
 enum Gender {

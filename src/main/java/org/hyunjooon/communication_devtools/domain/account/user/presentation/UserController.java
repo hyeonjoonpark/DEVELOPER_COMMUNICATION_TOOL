@@ -19,7 +19,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @SchemaMapping(typeName = "Query", value = "allUsers")
+    @SchemaMapping(typeName = "Query", value = "findAll")
     public List<UserResponse> findAll() {
         return userRepository.findAll().stream()
                 .map(user -> UserResponse.builder()
