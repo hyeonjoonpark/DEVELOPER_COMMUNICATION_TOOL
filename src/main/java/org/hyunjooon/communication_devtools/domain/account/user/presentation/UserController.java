@@ -8,7 +8,7 @@ import org.hyunjooon.communication_devtools.domain.account.user.service.UserServ
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @SchemaMapping(typeName = "Query", value = "findAll")
+    @QueryMapping
     public List<UserResponse> findAll() {
         return userRepository.findAll().stream()
                 .map(user -> UserResponse.builder()
