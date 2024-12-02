@@ -2,11 +2,15 @@ spring:
   graphql:
     graphiql:
       enabled: true
-    name: communication_devtools
-  #  kafka:
-  #    streams:
-  #      application-id: test_id
-  #    bootstrap-servers: localhost:9092
+  kafka:
+    consumer:
+      bootstrap-servers: http://localhost:9091
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: http://localhost:9091
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   data:
     redis:
       host: ${REDIS_LOCAL_HOST}
@@ -30,6 +34,8 @@ spring:
     generate-ddl: true
   main:
     allow-bean-definition-overriding: true
+  application:
+    name: DEVTOOL
 
 server:
   servlet:

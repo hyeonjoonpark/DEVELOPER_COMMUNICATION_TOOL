@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@RequiredArgsConstructor
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
@@ -24,6 +24,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -31,9 +32,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
-//                .oauth2Login(oauth -> oauth.successHandler((request, response, authentication) -> {
-//                    response.sendRedirect("http://localhost:3001"); // 프론트엔드 경로로 리다이랙트
-//                }))
+                .oauth2Login(oauth -> oauth.successHandler((request, response, authentication) -> {
+                    response.sendRedirect("http://localhost:3001"); // 프론트엔드 경로로 리다이랙트
+                }))
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/**").permitAll()
