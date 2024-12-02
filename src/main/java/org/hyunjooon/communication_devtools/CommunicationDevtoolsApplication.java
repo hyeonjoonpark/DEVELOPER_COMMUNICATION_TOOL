@@ -2,6 +2,7 @@ package org.hyunjooon.communication_devtools;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //import org.springframework.kafka.annotation.EnableKafkaStreams;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableJpaRepositories
+@EnableCaching
 //@EnableKafkaStreams
 public class CommunicationDevtoolsApplication {
 

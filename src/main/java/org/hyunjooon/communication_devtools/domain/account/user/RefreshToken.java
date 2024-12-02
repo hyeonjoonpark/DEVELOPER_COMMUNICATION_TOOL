@@ -9,12 +9,11 @@ import org.springframework.data.redis.core.RedisHash;
 public class RefreshToken {
     @Id
     private Long id;
+    private final String accessToken;
     private final String refreshToken;
-    private final Long expiration;
 
-    public RefreshToken(Long id, String refreshToken, Long expiration) {
-        this.id = id;
+    public RefreshToken(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
         this.refreshToken = refreshToken;
-        this.expiration = expiration;
     }
 }
