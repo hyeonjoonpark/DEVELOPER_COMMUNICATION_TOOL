@@ -33,6 +33,7 @@ public class User {
     @Column(nullable = false) @Min(value = 14, message = "나이는 14세 이상이여야 합니다") private int age; // 사용자 나이
 
     @Column(nullable = false) @Enumerated(value = EnumType.STRING) private Gender gender; // 사용자 성별
+    private String githubId;
     @Column(nullable = false) private String password; // 사용자 비밀번호
 
     private String provider; // 사용자 Oauth provider
@@ -120,13 +121,14 @@ public class User {
     }
 
     @Builder
-    public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String password, String provider, String providerId, Status status, String profileImageName, String profileDescription, List<String> interested, Role role) {
+    public User(String userId, String userName, String email, String phoneNumber, int age, Gender gender, String githubId, String password, String provider, String providerId, Status status, String profileImageName, String profileDescription, List<String> interested, Role role, List<ChatRoom> hostRooms, List<RoomUser> rooms, List<Board> boards, List<Post> posts, List<PostComment> postComments, List<BoardComment> boardComments, List<SourceCode> sourceCodes, List<SourceCodeReview> sourceCodeReviews) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.age = age;
         this.gender = gender;
+        this.githubId = githubId;
         this.password = password;
         this.provider = provider;
         this.providerId = providerId;
@@ -135,5 +137,13 @@ public class User {
         this.profileDescription = profileDescription;
         this.interested = interested;
         this.role = role;
+        this.hostRooms = hostRooms;
+        this.rooms = rooms;
+        this.boards = boards;
+        this.posts = posts;
+        this.postComments = postComments;
+        this.boardComments = boardComments;
+        this.sourceCodes = sourceCodes;
+        this.sourceCodeReviews = sourceCodeReviews;
     }
 }
