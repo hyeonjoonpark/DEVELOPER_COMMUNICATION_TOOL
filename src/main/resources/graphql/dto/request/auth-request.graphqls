@@ -10,3 +10,8 @@ input SignUpRequest {
     interested: [String!]
     role: Role!
 }
+
+input SignInRequest {
+    email: String!,
+    password: String
+}
