@@ -24,10 +24,7 @@ type User {
   sourceCodeReviews: [SourceCodeReview!] # SourceCodeReview
 }
 
-
-
 scalar JSON
-
 
 enum Gender {
   MALE
