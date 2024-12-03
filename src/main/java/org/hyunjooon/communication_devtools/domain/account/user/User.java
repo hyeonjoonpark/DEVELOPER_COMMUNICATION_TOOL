@@ -20,6 +20,7 @@ import org.hyunjooon.communication_devtools.domain.source_code_review.SourceCode
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity @Table(name = "users") @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -118,6 +119,48 @@ public class User {
     public void addSourceCodeReviews(SourceCodeReview sourceCodeReview) {
         sourceCodeReview.setUser(this);
         this.sourceCodeReviews.add(sourceCodeReview);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return age == user.age && Objects.equals(userId, user.userId) && Objects.equals(userName, user.userName) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && gender == user.gender && Objects.equals(githubId, user.githubId) && Objects.equals(password, user.password) && Objects.equals(provider, user.provider) && Objects.equals(providerId, user.providerId) && status == user.status && Objects.equals(profileImageName, user.profileImageName) && Objects.equals(profileDescription, user.profileDescription) && Objects.equals(interested, user.interested) && role == user.role && Objects.equals(hostRooms, user.hostRooms) && Objects.equals(rooms, user.rooms) && Objects.equals(boards, user.boards) && Objects.equals(posts, user.posts) && Objects.equals(postComments, user.postComments) && Objects.equals(boardComments, user.boardComments) && Objects.equals(sourceCodes, user.sourceCodes) && Objects.equals(sourceCodeReviews, user.sourceCodeReviews);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, userName, email, phoneNumber, age, gender, githubId, password, provider, providerId, status, profileImageName, profileDescription, interested, role, hostRooms, rooms, boards, posts, postComments, boardComments, sourceCodes, sourceCodeReviews);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", githubId='" + githubId + '\'' +
+                ", password='" + password + '\'' +
+                ", provider='" + provider + '\'' +
+                ", providerId='" + providerId + '\'' +
+                ", status=" + status +
+                ", profileImageName='" + profileImageName + '\'' +
+                ", profileDescription='" + profileDescription + '\'' +
+                ", interested=" + interested +
+                ", role=" + role +
+                ", hostRooms=" + hostRooms +
+                ", rooms=" + rooms +
+                ", boards=" + boards +
+                ", posts=" + posts +
+                ", postComments=" + postComments +
+                ", boardComments=" + boardComments +
+                ", sourceCodes=" + sourceCodes +
+                ", sourceCodeReviews=" + sourceCodeReviews +
+                '}';
     }
 
     @Builder
