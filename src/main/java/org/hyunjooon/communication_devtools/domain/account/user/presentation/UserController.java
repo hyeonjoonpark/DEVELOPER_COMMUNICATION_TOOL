@@ -1,6 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.account.user.presentation;
 
 import lombok.RequiredArgsConstructor;
+import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignInRequest;
 import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignUpRequest;
 import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.response.UserResponse;
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -34,5 +36,10 @@ public class UserController {
     @MutationMapping(value = "signUp")
     public GlobalResponse<?> signUp(@Argument SignUpRequest request) {
         return userService.create(request);
+    }
+
+    @MutationMapping(value = "signIn")
+    public GlobalResponse<?> signIn(@Argument SignInRequest request) {
+        return userService.signIn(request);
     }
 }
