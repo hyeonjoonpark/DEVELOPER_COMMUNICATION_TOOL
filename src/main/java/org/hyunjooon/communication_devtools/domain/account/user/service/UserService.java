@@ -35,11 +35,11 @@ public class UserService {
     @Value("${jwt.secret}")
     private String JWT_SECRET_KEY;
 
-    public GlobalResponse<?> create(SignUpRequest request) {
+    public GlobalResponse<?> create(SignUpRequest request) throws GlobalException {
 
         boolean isExist = userRepository.existsById(request.userId());
         if (isExist) {
-            throw new RuntimeException("이미 존재하는 사용자입니다");
+            throw new GlobalException(ErrorCode.USER_ALREADY_EXIST);
         }
 
         User user = User.builder()

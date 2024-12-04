@@ -7,6 +7,7 @@ import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.domain.account.user.service.UserService;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
+import org.hyunjooon.communication_devtools.global.exception.GlobalException;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -34,12 +35,12 @@ public class UserController {
     }
 
     @MutationMapping(value = "signUp")
-    public GlobalResponse<?> signUp(@Argument SignUpRequest request) {
+    public GlobalResponse<?> signUp(@Argument SignUpRequest request) throws GlobalException {
         return userService.create(request);
     }
 
     @MutationMapping(value = "signIn")
-    public GlobalResponse<?> signIn(@Argument SignInRequest request) {
+    public GlobalResponse<?> signIn(@Argument SignInRequest request) throws GlobalException {
         return userService.signIn(request);
     }
 }
