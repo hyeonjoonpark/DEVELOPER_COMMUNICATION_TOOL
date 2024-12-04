@@ -5,11 +5,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @Getter
-@RedisHash(value = "refreshToken", timeToLive = 60) // TTL 일단 짧게 설정
+@RedisHash(value = "refreshToken", timeToLive = 60)
 public class RefreshToken {
     @Id
-    private Long id;
-    private final String userId;
+    private String userId;
     private final String refreshToken;
 
     public RefreshToken(String userId, String refreshToken) {
