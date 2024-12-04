@@ -9,11 +9,11 @@ import org.springframework.data.redis.core.RedisHash;
 public class RefreshToken {
     @Id
     private Long id;
-    private final String accessToken;
+    private final String userId;
     private final String refreshToken;
 
-    public RefreshToken(String accessToken, String refreshToken) {
-        this.accessToken = accessToken;
+    public RefreshToken(String userId, String refreshToken) {
+        this.userId = userId;
         this.refreshToken = refreshToken;
     }
 }
