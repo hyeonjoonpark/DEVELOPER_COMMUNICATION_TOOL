@@ -8,17 +8,17 @@ import org.hyunjooon.communication_devtools.domain.account.user.repository.UserR
 import org.hyunjooon.communication_devtools.domain.auth.service.AuthService;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
 import org.hyunjooon.communication_devtools.global.exception.GlobalException;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-public class AuthResolver {
+public class AuthController {
     private final UserRepository userRepository;
     private final AuthService authService;
 
@@ -33,13 +33,13 @@ public class AuthResolver {
                 .collect(Collectors.toList());
     }
 
-    @MutationMapping(value = "signUp")
-    public GlobalResponse<?> signUp(@Argument SignUpRequest request) throws GlobalException {
+    @PostMapping("/signUp")
+    public GlobalResponse<?> signUp(@RequestBody SignUpRequest request) throws GlobalException {
         return authService.create(request);
     }
 
-    @MutationMapping(value = "signIn")
-    public GlobalResponse<?> signIn(@Argument SignInRequest request) throws GlobalException {
+    @PostMapping(value = "signIn")
+    public GlobalResponse<?> signIn(@RequestBody SignInRequest request) throws GlobalException {
         return authService.
                 signIn(request);
     }

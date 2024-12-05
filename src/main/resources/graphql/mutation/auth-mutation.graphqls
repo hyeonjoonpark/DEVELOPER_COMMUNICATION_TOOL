@@ -1,4 +1,0 @@
-type Mutation {
-    signUp(request: SignUpRequest!): GlobalResponse!
-    signIn(request: SignInRequest!): GlobalResponse!
-}
