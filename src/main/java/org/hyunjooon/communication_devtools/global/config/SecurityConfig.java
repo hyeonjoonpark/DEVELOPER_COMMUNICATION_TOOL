@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,22 +36,14 @@ public class SecurityConfig {
 //                }))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/**").permitAll()
-                                .requestMatchers("/graphql/**", "/graphiql/**").permitAll()
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/graphiql/**").permitAll() // graphiql에 대한 접근 허용
+                                .requestMatchers("/graphql/**").permitAll() // graphql에 대한 접근 허용
+                                .requestMatchers("/favicon.ico").permitAll() // favicon.ico에 대한 접근 허용
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer securityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers(
-                        "/graphiql/**",
-                        "/graphql/**",
-                        "/favicon.ico"
-                );
     }
 }
