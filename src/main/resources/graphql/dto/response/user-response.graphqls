@@ -1,0 +1,5 @@
+input UserResponse {
+    userId: ID!          # 사용자 고유 ID
+    email: String!       # 사용자 이메일
+    phoneNumber: String!  # 사용자 전화번호
+}
