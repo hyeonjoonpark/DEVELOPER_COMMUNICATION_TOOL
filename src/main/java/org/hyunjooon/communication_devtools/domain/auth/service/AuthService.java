@@ -1,10 +1,10 @@
-package org.hyunjooon.communication_devtools.domain.account.user.service;
+package org.hyunjooon.communication_devtools.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
-import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignInRequest;
-import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request.SignUpRequest;
-import org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.response.SignInResponse;
+import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignInRequest;
+import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignUpRequest;
+import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.response.SignInResponse;
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.domain.auth.details.CustomUserDetailService;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailService customUserDetailService;

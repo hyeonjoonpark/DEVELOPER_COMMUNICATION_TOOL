@@ -1,4 +1,4 @@
-package org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.response;
+package org.hyunjooon.communication_devtools.domain.auth.presentation.dto.response;
 
 public record SignInResponse(
         String userId,

@@ -1,4 +1,4 @@
-package org.hyunjooon.communication_devtools.domain.account.user.presentation.dto.request;
+package org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request;
 
 import lombok.Builder;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
