@@ -2,6 +2,7 @@ spring:
   graphql:
     graphiql:
       enabled: true
+    path: /graphql
   kafka:
     consumer:
       bootstrap-servers: http://localhost:9091
