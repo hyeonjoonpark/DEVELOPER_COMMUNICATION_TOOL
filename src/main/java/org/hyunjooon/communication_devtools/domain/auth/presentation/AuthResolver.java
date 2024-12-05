@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthResolver {
     private final UserRepository userRepository;
     private final AuthService authService;
 
