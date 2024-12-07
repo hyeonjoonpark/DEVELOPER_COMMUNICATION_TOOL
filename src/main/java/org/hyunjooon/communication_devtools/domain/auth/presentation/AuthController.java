@@ -3,7 +3,6 @@ package org.hyunjooon.communication_devtools.domain.auth.presentation;
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignInRequest;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignUpRequest;
-import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.domain.auth.service.AuthService;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
 import org.hyunjooon.communication_devtools.global.exception.GlobalException;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
-    private final UserRepository userRepository;
     private final AuthService authService;
 
     @PostMapping("/signUp")
