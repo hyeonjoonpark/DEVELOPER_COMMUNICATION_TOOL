@@ -42,7 +42,7 @@ spring:
     name: DEVTOOL
 
 jwt:
-  secret:   rT3nG!2kL9qF8wYz
+  secret: rT3nG2kL9qF8wYzrT3nG2kLsdfkllsFsdkfjlsdfslkdf8wYz
 server:
   servlet:
     encoding:
