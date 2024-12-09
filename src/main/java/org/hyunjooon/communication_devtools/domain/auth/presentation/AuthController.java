@@ -24,7 +24,6 @@ public class AuthController {
 
     @PostMapping(value = "signIn")
     public GlobalResponse<?> signIn(@RequestBody SignInRequest request) throws GlobalException {
-        return authService.
-                signIn(request);
+        return authService.signIn(request);
     }
 }
