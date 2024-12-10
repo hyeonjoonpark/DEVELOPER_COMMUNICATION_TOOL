@@ -68,7 +68,7 @@ public class AuthService {
         // RefreshToken 발급
         String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
         // Refresh token Redis 저장
-        redisTemplate.opsForValue().set("REFRESH", refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set("refresh_" + user.getUsername(), refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
 
         return GlobalResponse.success("성공적으로 로그인되었습니다",
                 new SignInResponse(
