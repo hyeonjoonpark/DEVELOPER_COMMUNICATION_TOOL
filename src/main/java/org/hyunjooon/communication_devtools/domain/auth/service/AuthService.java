@@ -14,6 +14,7 @@ import org.hyunjooon.communication_devtools.global.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -78,5 +79,9 @@ public class AuthService {
                         refreshToken
                 ), HttpStatus.OK
         );
+    }
+
+    public ResponseEntity<?> logout() {
+        return null;
     }
 }
