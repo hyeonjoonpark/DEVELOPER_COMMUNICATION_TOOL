@@ -22,7 +22,7 @@ public class AuthController {
         return authService.create(request);
     }
 
-    @PostMapping(value = "signIn")
+    @PostMapping("/signIn")
     public GlobalResponse<?> signIn(@RequestBody SignInRequest request) throws GlobalException {
         return authService.signIn(request);
     }

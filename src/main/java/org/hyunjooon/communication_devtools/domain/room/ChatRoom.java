@@ -10,25 +10,33 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-@Entity @Getter @Builder
+@Entity
+@Getter
+@Builder
 @EntityListeners(AuditingEntityListener.class)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ChatRoom {
-    @Id @Column(name = "chat_room_id") private UUID id;
+    @Id
+    @Column(name = "chat_room_id", nullable = false)
+    private UUID id;
 
     @Column(nullable = false, length = 20) private String roomTitle; // 방 제목
     @Column(length = 50) private String roomDescription; // 방 설명
     private String roomPassword; // 방 비밀번호
 
     @ElementCollection private List<String> topics; // 토픽
-    @Column(nullable = false) @Builder.Default private boolean isPrivate = false; // 공개 여부 기본적으로 public 으로 지정됩니다
+    @Column(nullable = false)
+    private boolean isPrivate = false; // 공개 여부 기본적으로 public 으로 지정됩니다
 
     @CreatedDate LocalDate createdDate;
 
     // 방 생성한 Host 사용자, User 엔티티 매핑
-    @ManyToOne(fetch = FetchType.LAZY) @JoinTable(name = "host_user_id") @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    @Setter
     private User user;
 
     // 방에 접속한 User 엔티티 (RoomUser) 매핑
@@ -50,5 +58,31 @@ public class ChatRoom {
         this.createdDate = createdDate;
         this.user = user;
         this.roomUsers = roomUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ChatRoom chatRoom)) return false;
+        return isPrivate == chatRoom.isPrivate && Objects.equals(id, chatRoom.id) && Objects.equals(roomTitle, chatRoom.roomTitle) && Objects.equals(roomDescription, chatRoom.roomDescription) && Objects.equals(roomPassword, chatRoom.roomPassword) && Objects.equals(topics, chatRoom.topics) && Objects.equals(createdDate, chatRoom.createdDate) && Objects.equals(user, chatRoom.user) && Objects.equals(roomUsers, chatRoom.roomUsers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, roomTitle, roomDescription, roomPassword, topics, isPrivate, createdDate, user, roomUsers);
+    }
+
+    @Override
+    public String toString() {
+        return "ChatRoom{" +
+                "id=" + id +
+                ", roomTitle='" + roomTitle + '\'' +
+                ", roomDescription='" + roomDescription + '\'' +
+                ", roomPassword='" + roomPassword + '\'' +
+                ", topics=" + topics +
+                ", isPrivate=" + isPrivate +
+                ", createdDate=" + createdDate +
+                ", user=" + user +
+                ", roomUsers=" + roomUsers +
+                '}';
     }
 }
