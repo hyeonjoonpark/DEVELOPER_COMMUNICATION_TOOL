@@ -2,10 +2,7 @@ package org.hyunjooon.communication_devtools.domain.account.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Role;
