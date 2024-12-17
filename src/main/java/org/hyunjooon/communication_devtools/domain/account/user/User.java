@@ -1,7 +1,6 @@
 package org.hyunjooon.communication_devtools.domain.account.user;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.Comment;
