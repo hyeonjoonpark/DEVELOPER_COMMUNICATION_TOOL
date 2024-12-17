@@ -1,9 +1,11 @@
 package org.hyunjooon.communication_devtools.domain.account.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.validator.constraints.Length;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Gender;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Role;
 import org.hyunjooon.communication_devtools.domain.account.user.enums.Status;
@@ -16,6 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id @Comment(value = "사용자 ID")
+    @Length(min = 4, max = 8, message = "ID는 4자 이상 8자 이하이여야 합니다")
     private String userId; // 사용자 고유 ID
 
     @Column(nullable = false) @Comment(value = "사용자 이름") private String userName; // 사용자 이름
