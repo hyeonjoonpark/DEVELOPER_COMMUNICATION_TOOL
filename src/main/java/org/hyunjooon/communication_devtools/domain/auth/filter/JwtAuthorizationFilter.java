@@ -18,6 +18,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-
+        String accessToken = request.getHeader("Authorization");
+        if (accessToken.isBlank() || !accessToken.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+        }
     }
 }
