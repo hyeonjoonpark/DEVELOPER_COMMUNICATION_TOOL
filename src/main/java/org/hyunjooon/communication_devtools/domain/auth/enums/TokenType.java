@@ -5,9 +5,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum HeaderType {
-    CONTENT_TYPE("Content-Type"),
-    AUTHORIZATION("Authorization");
+public enum TokenType {
+    BEARER("Bearer "),
+    ACCESS("access"),
+    REFRESH("refresh");
 
     private final String description;
 }
