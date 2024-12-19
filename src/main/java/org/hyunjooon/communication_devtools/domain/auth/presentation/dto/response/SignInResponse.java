@@ -3,7 +3,7 @@ package org.hyunjooon.communication_devtools.domain.auth.presentation.dto.respon
 public record SignInResponse(
         String userId,
         String email,
-        String accessToken,
+        String  accessToken,
         String refreshToken
 ) {
 

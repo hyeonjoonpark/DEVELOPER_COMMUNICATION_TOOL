@@ -1,5 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.auth.service;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.hyunjooon.communication_devtools.domain.auth.RefreshToken;
@@ -58,15 +60,31 @@ public class AuthService {
         return GlobalResponse.success("성공적으로 회원가입 되었습니다", user.getUserId(), HttpStatus.CREATED);
     }
 
-    public GlobalResponse<?> signIn(SignInRequest signInRequest) throws GlobalException {
+    public GlobalResponse<?> signIn(SignInRequest signInRequest, HttpServletResponse servletResponse) throws GlobalException {
         CustomUserDetails user = (CustomUserDetails) customUserDetailService.loadUserByEmail(signInRequest.email());
+        if (!user.isEnabled()) {
+            throw new GlobalException(ErrorCode.USER_NOT_FOUND);
+        }
         if (!passwordEncoder.matches(signInRequest.password(), user.getPassword())) {
             throw new GlobalException(ErrorCode.WRONG_PASSWORD);
         }
         // AccessToken 발급
         String accessToken = jwtUtil.createToken(signInRequest.email(), ACCESS_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
+        Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
+        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setSecure(true);
+        accessTokenCookie.setMaxAge(Math.toIntExact(ACCESS_TOKEN_EXPIRATION_TIME));
+        accessTokenCookie.setPath("/");
+        servletResponse.addCookie(accessTokenCookie);
+
         // RefreshToken 발급
         String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
+        Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(true);
+        refreshTokenCookie.setMaxAge(Math.toIntExact(REFRESH_TOKEN_EXPIRATION_TIME));
+        refreshTokenCookie.setPath("/");
+        servletResponse.addCookie(refreshTokenCookie);
         // Refresh token Redis 저장
 //        redisTemplate.opsForValue().set("refresh_" + user.getUsername(), refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
         refreshTokenRepository.save(new RefreshToken(user.getUserId(), refreshToken));

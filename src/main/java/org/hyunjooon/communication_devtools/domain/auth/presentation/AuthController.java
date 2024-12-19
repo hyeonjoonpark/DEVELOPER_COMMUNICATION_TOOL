@@ -1,5 +1,6 @@
 package org.hyunjooon.communication_devtools.domain.auth.presentation;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignInRequest;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignUpRequest;
@@ -21,8 +22,8 @@ public class AuthController {
     }
 
     @PostMapping("/signIn")
-    public GlobalResponse<?> signIn(@RequestBody SignInRequest request) throws GlobalException {
-        return authService.signIn(request);
+    public GlobalResponse<?> signIn(@RequestBody SignInRequest request, HttpServletResponse response) throws GlobalException {
+        return authService.signIn(request, response);
     }
 
     @GetMapping("/logout")
