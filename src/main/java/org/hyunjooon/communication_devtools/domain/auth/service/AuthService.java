@@ -2,11 +2,13 @@ package org.hyunjooon.communication_devtools.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
+import org.hyunjooon.communication_devtools.domain.auth.RefreshToken;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignInRequest;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignUpRequest;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.response.SignInResponse;
 import org.hyunjooon.communication_devtools.domain.account.user.repository.UserRepository;
 import org.hyunjooon.communication_devtools.domain.auth.details.CustomUserDetailService;
+import org.hyunjooon.communication_devtools.domain.auth.repository.RefreshTokenRepository;
 import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
 import org.hyunjooon.communication_devtools.global.exception.GlobalException;
 import org.hyunjooon.communication_devtools.global.exception.errorCode.ErrorCode;
@@ -32,6 +34,7 @@ public class AuthService {
     private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60L;
     private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 7L;
     private final RedisTemplate<String, String> redisTemplate;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Value("${jwt.secret}")
     private String JWT_SECRET_KEY;
@@ -69,7 +72,8 @@ public class AuthService {
         // RefreshToken 발급
         String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
         // Refresh token Redis 저장
-        redisTemplate.opsForValue().set("refresh_" + user.getUsername(), refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
+//        redisTemplate.opsForValue().set("refresh_" + user.getUsername(), refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
+        refreshTokenRepository.save(new RefreshToken(user.getUsername(), refreshToken));
 
         return GlobalResponse.success("성공적으로 로그인되었습니다",
                 new SignInResponse(
