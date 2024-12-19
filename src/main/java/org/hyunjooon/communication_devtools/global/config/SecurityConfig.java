@@ -37,8 +37,8 @@ public class SecurityConfig {
 //                    response.sendRedirect("http://localhost:3001"); // 프론트엔드 경로로 리다이랙트
 //                }))
                 .logout(
-                        logout ->
-                                logout.logoutSuccessHandler(customLogoutSuccessHandler)
+                        logout -> logout
+                                .logoutSuccessHandler(customLogoutSuccessHandler)
                 )
                 .authorizeHttpRequests(
                         auth -> auth
