@@ -45,8 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/graphiql/**").permitAll() // graphiql에 대한 접근 허용
-                                .requestMatchers("/graphql/**").permitAll() // graphql에 대한 접근 허용
+                                .requestMatchers("/graphiql/**", "/graphql/**").permitAll() // graphql 관련 접근 허용
                                 .requestMatchers("/favicon.ico").permitAll() // favicon.ico에 대한 접근 허용
                                 .anyRequest().permitAll()
                 )
