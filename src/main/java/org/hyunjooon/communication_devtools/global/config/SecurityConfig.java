@@ -1,6 +1,7 @@
 package org.hyunjooon.communication_devtools.global.config;
 
 import lombok.RequiredArgsConstructor;
+import org.hyunjooon.communication_devtools.domain.auth.filter.JwtAuthorizationFilter;
 import org.hyunjooon.communication_devtools.domain.auth.handler.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +50,11 @@ public class SecurityConfig {
                                 .requestMatchers("/favicon.ico").permitAll() // favicon.ico에 대한 접근 허용
                                 .anyRequest().permitAll()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(
+                        session -> session
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
