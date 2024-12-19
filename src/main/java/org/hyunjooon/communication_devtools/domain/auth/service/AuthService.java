@@ -14,14 +14,11 @@ import org.hyunjooon.communication_devtools.global.exception.GlobalException;
 import org.hyunjooon.communication_devtools.global.exception.errorCode.ErrorCode;
 import org.hyunjooon.communication_devtools.global.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +30,6 @@ public class AuthService {
 
     private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60L;
     private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 7L;
-    private final RedisTemplate<String, String> redisTemplate;
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Value("${jwt.secret}")
