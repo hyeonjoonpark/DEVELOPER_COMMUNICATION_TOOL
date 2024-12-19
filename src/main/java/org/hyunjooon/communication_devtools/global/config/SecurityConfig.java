@@ -1,6 +1,7 @@
 package org.hyunjooon.communication_devtools.global.config;
 
 import lombok.RequiredArgsConstructor;
+import org.hyunjooon.communication_devtools.domain.auth.handler.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -16,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
 
@@ -34,6 +36,10 @@ public class SecurityConfig {
 //                .oauth2Login(oauth -> oauth.successHandler((request, response, authentication) -> {
 //                    response.sendRedirect("http://localhost:3001"); // 프론트엔드 경로로 리다이랙트
 //                }))
+                .logout(
+                        logout ->
+                                logout.logoutSuccessHandler(customLogoutSuccessHandler)
+                )
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/").permitAll()
