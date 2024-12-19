@@ -3,6 +3,7 @@ package org.hyunjooon.communication_devtools.domain.auth.service;
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.account.user.User;
 import org.hyunjooon.communication_devtools.domain.auth.RefreshToken;
+import org.hyunjooon.communication_devtools.domain.auth.details.CustomUserDetails;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignInRequest;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignUpRequest;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.response.SignInResponse;
@@ -16,7 +17,6 @@ import org.hyunjooon.communication_devtools.global.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +59,7 @@ public class AuthService {
     }
 
     public GlobalResponse<?> signIn(SignInRequest signInRequest) throws GlobalException {
-        UserDetails user = customUserDetailService.loadUserByEmail(signInRequest.email());
+        CustomUserDetails user = (CustomUserDetails) customUserDetailService.loadUserByEmail(signInRequest.email());
         if (!passwordEncoder.matches(signInRequest.password(), user.getPassword())) {
             throw new GlobalException(ErrorCode.WRONG_PASSWORD);
         }
@@ -69,7 +69,7 @@ public class AuthService {
         String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
         // Refresh token Redis 저장
 //        redisTemplate.opsForValue().set("refresh_" + user.getUsername(), refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
-        refreshTokenRepository.save(new RefreshToken(user.getUsername(), refreshToken));
+        refreshTokenRepository.save(new RefreshToken(user.getUserId(), refreshToken));
 
         return GlobalResponse.success("성공적으로 로그인되었습니다",
                 new SignInResponse(
