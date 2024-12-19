@@ -92,9 +92,7 @@ public class AuthService {
         return GlobalResponse.success("성공적으로 로그인되었습니다",
                 new SignInResponse(
                         user.getUsername(),
-                        signInRequest.email(),
-                        accessToken,
-                        refreshToken
+                        signInRequest.email()
                 ), HttpStatus.OK
         );
     }
