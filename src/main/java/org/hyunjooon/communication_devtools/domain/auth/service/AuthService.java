@@ -16,7 +16,6 @@ import org.hyunjooon.communication_devtools.global.common.GlobalResponse;
 import org.hyunjooon.communication_devtools.global.exception.GlobalException;
 import org.hyunjooon.communication_devtools.global.exception.errorCode.ErrorCode;
 import org.hyunjooon.communication_devtools.global.utils.JwtUtil;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,9 +32,6 @@ public class AuthService {
     private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60L;
     private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 7L;
     private final RefreshTokenRepository refreshTokenRepository;
-
-    @Value("${jwt.secret}")
-    private String JWT_SECRET_KEY;
 
     public GlobalResponse<?> create(SignUpRequest request) throws GlobalException {
 
@@ -69,7 +65,7 @@ public class AuthService {
             throw new GlobalException(ErrorCode.WRONG_PASSWORD);
         }
         // AccessToken 발급
-        String accessToken = jwtUtil.createToken(signInRequest.email(), ACCESS_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
+        String accessToken = jwtUtil.createToken(signInRequest.email(), ACCESS_TOKEN_EXPIRATION_TIME);
         Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
         accessTokenCookie.setHttpOnly(true);
         accessTokenCookie.setSecure(true);
@@ -78,7 +74,7 @@ public class AuthService {
         servletResponse.addCookie(accessTokenCookie);
 
         // RefreshToken 발급
-        String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME, JWT_SECRET_KEY);
+        String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME);
         Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
         refreshTokenCookie.setHttpOnly(true);
         refreshTokenCookie.setSecure(true);
