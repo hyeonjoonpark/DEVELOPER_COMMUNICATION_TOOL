@@ -6,6 +6,7 @@ import org.hyunjooon.communication_devtools.domain.auth.handler.CustomLogoutSucc
 import org.hyunjooon.communication_devtools.global.utils.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -48,6 +49,8 @@ public class SecurityConfig {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/graphiql/**", "/graphql/**").permitAll() // graphql 관련 접근 허용
                                 .requestMatchers("/favicon.ico").permitAll() // favicon.ico에 대한 접근 허용
+                                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                                .requestMatchers("/test").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(
