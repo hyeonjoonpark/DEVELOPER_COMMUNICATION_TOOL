@@ -5,11 +5,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import org.hyunjooon.communication_devtools.domain.auth.details.CustomUserDetailService;
+import org.hyunjooon.communication_devtools.domain.auth.details.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailService customUserDetailService;
 
     @Value("${jwt.secret}")
     private String JWT_SECRET;
@@ -52,7 +52,7 @@ public class JwtUtil {
         Claims claims = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(JWT_SECRET))).build().parseClaimsJws(token).getBody();
 
         String email = claims.get("email", String.class);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        CustomUserDetails userDetails = (CustomUserDetails) customUserDetailService.loadUserByEmail(email);
 
         return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
     }
