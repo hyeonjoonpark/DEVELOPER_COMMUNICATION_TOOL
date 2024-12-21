@@ -1,5 +1,6 @@
 package org.hyunjooon.communication_devtools.domain.auth.presentation;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.auth.presentation.dto.request.SignInRequest;
@@ -27,7 +28,7 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<?> logout() {
-        return authService.logout();
+    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws GlobalException {
+        return authService.logout(servletRequest, servletResponse);
     }
 }
