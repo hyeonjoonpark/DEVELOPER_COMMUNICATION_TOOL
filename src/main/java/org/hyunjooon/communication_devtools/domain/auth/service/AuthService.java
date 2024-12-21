@@ -43,8 +43,6 @@ public class AuthService {
     private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60L;
     private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 7L;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final ServletRequest servletRequest;
-    private final ServletResponse servletResponse;
 
     public GlobalResponse<?> create(SignUpRequest request) throws GlobalException {
 
