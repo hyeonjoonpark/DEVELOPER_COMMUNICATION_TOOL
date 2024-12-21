@@ -1,5 +1,7 @@
 package org.hyunjooon.communication_devtools.domain.auth.service;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,6 +43,8 @@ public class AuthService {
     private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60L;
     private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 7L;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final ServletRequest servletRequest;
+    private final ServletResponse servletResponse;
 
     public GlobalResponse<?> create(SignUpRequest request) throws GlobalException {
 
@@ -75,21 +79,11 @@ public class AuthService {
         }
         // AccessToken 발급
         String accessToken = jwtUtil.createToken(signInRequest.email(), ACCESS_TOKEN_EXPIRATION_TIME);
-        Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
-        accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setSecure(true);
-        accessTokenCookie.setMaxAge(Math.toIntExact(ACCESS_TOKEN_EXPIRATION_TIME));
-        accessTokenCookie.setPath("/");
-        servletResponse.addCookie(accessTokenCookie);
+        setCookie("accessToken", accessToken, ACCESS_TOKEN_EXPIRATION_TIME, "/", servletResponse);
 
         // RefreshToken 발급
         String refreshToken = jwtUtil.createToken(signInRequest.email(), REFRESH_TOKEN_EXPIRATION_TIME);
-        Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-        refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setSecure(true);
-        refreshTokenCookie.setMaxAge(Math.toIntExact(REFRESH_TOKEN_EXPIRATION_TIME));
-        refreshTokenCookie.setPath("/");
-        servletResponse.addCookie(refreshTokenCookie);
+        setCookie("refreshToken", refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, "/", servletResponse);
         // Refresh token Redis 저장
 //        redisTemplate.opsForValue().set("refresh_" + user.getUsername(), refreshToken, REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MILLISECONDS);
         refreshTokenRepository.save(new RefreshToken(user.getUserId(), refreshToken));
@@ -102,7 +96,7 @@ public class AuthService {
         );
     }
 
-    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws GlobalException, URISyntaxException {
+    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws URISyntaxException {
         Map<String, Object> responseMap = new HashMap<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -112,5 +106,14 @@ public class AuthService {
         responseMap.put("location", new URI("/"));
         responseMap.put("status", HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
+
+    public void setCookie(String cookieKey, Object cookieValue, Long maxAge, String path, HttpServletResponse servletResponse) {
+        Cookie cookie = new Cookie(cookieKey, cookieValue.toString());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath(path);
+        cookie.setMaxAge(Math.toIntExact(maxAge));
+        servletResponse.addCookie(cookie);
     }
 }

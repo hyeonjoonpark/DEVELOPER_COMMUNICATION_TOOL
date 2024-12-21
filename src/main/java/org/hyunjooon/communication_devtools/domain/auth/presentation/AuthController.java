@@ -11,6 +11,8 @@ import org.hyunjooon.communication_devtools.global.exception.GlobalException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws GlobalException {
+    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws URISyntaxException {
         return authService.logout(servletRequest, servletResponse);
     }
 }
