@@ -25,6 +25,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,14 +102,14 @@ public class AuthService {
         );
     }
 
-    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws GlobalException {
+    public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws GlobalException, URISyntaxException {
         Map<String, Object> responseMap = new HashMap<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             new SecurityContextLogoutHandler().logout(servletRequest, servletResponse, authentication);
         }
         responseMap.put("message", "성공적으로 로그아웃하였습니다");
-        responseMap.put("location", "/");
+        responseMap.put("location", new URI("/"));
         responseMap.put("status", HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
