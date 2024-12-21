@@ -97,7 +97,7 @@ public class AuthService {
     public ResponseEntity<?> logout(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws URISyntaxException {
         Map<String, Object> responseMap = new HashMap<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
+        if (authentication != null && authentication.isAuthenticated()) {
             new SecurityContextLogoutHandler().logout(servletRequest, servletResponse, authentication);
         }
         responseMap.put("message", "성공적으로 로그아웃하였습니다");
