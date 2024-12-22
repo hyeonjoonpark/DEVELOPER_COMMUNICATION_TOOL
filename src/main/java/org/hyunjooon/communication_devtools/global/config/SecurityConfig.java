@@ -52,11 +52,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/graphiql/**", "/graphql/**").permitAll() // graphql 관련 접근 허용
+                                .requestMatchers("/graphiql", "/graphql").permitAll() // graphql 관련 접근 허용
                                 .requestMatchers("/favicon.ico").permitAll() // favicon.ico에 대한 접근 허용
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                                 .requestMatchers("/test").authenticated()
                                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                                .requestMatchers("/graphql?query=testQuery").authenticated() // GraphQL 특정 API 인증필요
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(
