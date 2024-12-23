@@ -1,0 +1,1 @@
+# Proceedings (회의록 엔티티)
