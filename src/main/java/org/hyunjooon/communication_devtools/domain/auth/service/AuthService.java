@@ -106,8 +106,8 @@ public class AuthService {
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
 
-    public void setCookie(String cookieKey, Object cookieValue, Long maxAge, String path, HttpServletResponse servletResponse) {
-        Cookie cookie = new Cookie(cookieKey, cookieValue.toString());
+    public void setCookie(String cookieKey, String cookieValue, Long maxAge, String path, HttpServletResponse servletResponse) {
+        Cookie cookie = new Cookie(cookieKey, cookieValue);
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath(path);
