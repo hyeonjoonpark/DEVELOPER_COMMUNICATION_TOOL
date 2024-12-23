@@ -1,3 +1,4 @@
 type Query {
     findAll: [User!]! # 모든 사용자 조회
+    testQuery: String!
 }
