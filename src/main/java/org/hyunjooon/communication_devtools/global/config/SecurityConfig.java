@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,6 +22,7 @@ import org.springframework.web.cors.CorsUtils;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private final JwtUtil jwtUtil;
@@ -56,7 +58,6 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                                 .requestMatchers("/test").authenticated()
                                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                                .requestMatchers("/graphql?query=testQuery").authenticated() // GraphQL 특정 API 인증필요
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(
