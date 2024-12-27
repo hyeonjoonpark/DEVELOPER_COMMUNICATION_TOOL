@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
@@ -18,14 +21,15 @@ public class CustomUserDetailService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username + ": " + "찾을 수 없는 사용자입니다");
         }
-        return new CustomUserDetails(user);
+        return new CustomUserDetails(user, new HashMap<>());
     }
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException(email + ": " + "찾을 수 없는 사용자입니다");
-        }
-        return new CustomUserDetails(user);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException(email + ": " + "찾을 수 없는 사용자입니다")
+                );
+
+        return new CustomUserDetails(user, new HashMap<>());
     }
 }
