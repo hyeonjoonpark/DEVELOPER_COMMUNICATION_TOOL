@@ -92,4 +92,10 @@ public class User {
         this.interested = interested;
         this.role = role;
     }
+
+    public User update(String userName, String profileImageName) {
+        this.userName = userName;
+        this.profileImageName = profileImageName;
+        return this;
+    }
 }
