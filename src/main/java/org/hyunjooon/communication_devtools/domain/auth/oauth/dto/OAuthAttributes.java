@@ -14,13 +14,22 @@ public record OAuthAttributes(
         String email,
         String picture
 ) {
-    public static OAuthAttributes of(String registrationId,
-                                     String userNameAttributeName,
-                                     Map<String, Object> attributes) {
-        return ofGithub(userNameAttributeName, attributes);
+    public static OAuthAttributes of(
+            String registrationId,
+            String userNameAttributeName,
+            Map<String, Object> attributes
+    ) {
+        switch (registrationId) {
+            case "github" -> {
+                return ofGithub(userNameAttributeName, attributes);
+            }
+            case "google" -> throw new RuntimeException("아직 구글 로그인 구현 안함");
+        }
     }
-    private static OAuthAttributes ofGithub(String userNameAttributeName,
-                                            Map<String, Object> attributes) {
+    private static OAuthAttributes ofGithub(
+            String userNameAttributeName,
+            Map<String, Object> attributes
+    ) {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
