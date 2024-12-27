@@ -24,6 +24,7 @@ public record OAuthAttributes(
                 return ofGithub(userNameAttributeName, attributes);
             }
             case "google" -> throw new RuntimeException("아직 구글 로그인 구현 안함");
+            default -> throw new IllegalArgumentException("찾을 수 없는 로그인 방식입니다");
         }
     }
     private static OAuthAttributes ofGithub(
