@@ -47,8 +47,17 @@ spring:
           github:
             client-id: ${DEVTOOL_GITHUB_CLIENT_ID}
             client-secret: ${DEVTOOL_GITHUB_CLIENT_SECRET}
-            redirect-uri: http://localhost:9090/login/oauth2/code/github
-            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:9090/login/oauth2/code/github"
+            scope:
+              - read:user
+              - user:email
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: id
+
 jwt:
   secret: ${DEVTOOL_JWT_SECRET}
 server:

@@ -31,11 +31,10 @@ public record OAuthAttributes(
             String userNameAttributeName,
             Map<String, Object> attributes
     ) {
-        // TODO: OAuth 응답 형식에 따라 Key 값 바꿔야 함
         return OAuthAttributes.builder()
-                .name(attributes.get("name").toString())
-                .email(attributes.get("email").toString())
-                .picture(attributes.get("picture").toString())
+                .name(String.valueOf(attributes.get("login")))
+                .email(String.valueOf(attributes.get("email")))
+                .picture(String.valueOf(attributes.get("avatar_url")))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();

@@ -1,6 +1,5 @@
 package org.hyunjooon.communication_devtools.global.config;
 
-import lombok.RequiredArgsConstructor;
 import org.hyunjooon.communication_devtools.domain.auth.filter.JwtAuthorizationFilter;
 import org.hyunjooon.communication_devtools.domain.auth.handler.CustomLogoutSuccessHandler;
 import org.hyunjooon.communication_devtools.global.utils.JwtUtil;
@@ -13,16 +12,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true)
+@Slf4j
 public class SecurityConfig {
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private final JwtUtil jwtUtil;
@@ -43,9 +48,13 @@ public class SecurityConfig {
                                 .defaultSuccessUrl("/")
                                 .failureUrl("/login?error=true")
                 )
-//                .oauth2Login(oauth -> oauth.successHandler((request, response, authentication) -> {
-//                    response.sendRedirect("http://localhost:3001"); // 프론트엔드 경로로 리다이랙트
-//                }))
+                .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("http://localhost:3001", true)
+                        .failureHandler((request, response, exception) -> {
+                            log.error("OAuth2 로그인 실패: ", exception);
+                            response.sendRedirect("http://localhost:3001/login?error=true");
+                        })
+                )
                 .logout(
                         logout -> logout
                                 .logoutSuccessHandler(customLogoutSuccessHandler)
@@ -54,11 +63,12 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/graphiql", "/graphql").permitAll() // graphql 관련 접근 허용
+                                .requestMatchers("/login", "/login/oauth2/code/github").permitAll()
                                 .requestMatchers("/favicon.ico").permitAll() // favicon.ico에 대한 접근 허용
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                                 .requestMatchers("/test").authenticated()
                                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(
                         session -> session
@@ -67,5 +77,15 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthorizationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() throws Exception {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("USER")
+                .build());
+        return manager;
     }
 }
