@@ -12,5 +12,5 @@ public enum Registration {
     GOOGLE("google"),
     FACEBOOK("facebook");
 
-    private String id;
+    private final String id;
 }
