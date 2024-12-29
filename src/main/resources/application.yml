@@ -40,9 +40,17 @@ spring:
     allow-bean-definition-overriding: true
   application:
     name: DEVTOOL
-
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${DEVTOOL_GITHUB_CLIENT_ID}
+            client-secret: ${DEVTOOL_GITHUB_CLIENT_SECRET}
+            redirect-uri: http://localhost:9090/login/oauth2/code/github
+            authorization-grant-type: authorization_code
 jwt:
-  secret: ZGV2ZWxvcGVyLXRvb2xzLXNwcmluZy1zZWN1cml0eS1zZWNyZXQta2V5LWJhc2U2NA==
+  secret: ${DEVTOOL_JWT_SECRET}
 server:
   servlet:
     encoding:
@@ -50,3 +58,6 @@ server:
       enabled: true
       force: true
   port: 9090
+logging:
+  level:
+    org.springframework.security: DEBUG
